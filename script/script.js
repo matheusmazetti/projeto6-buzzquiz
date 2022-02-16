@@ -69,8 +69,11 @@ function optionsQuizz(quizz){
     let optionsQuizz = document.querySelector(".options");
     let questions = quizz.data.questions;
     questions = questions.sort(comparador);
-    let urlimage = questions[0].answers[0].image;
-    console.log(optionsQuizz)
+    questions.forEach(element =>{
+        let urlimage = questions[0].answers[0].image;
+        optionsQuizz.innerHTML = `<figure><img src="${element.answers.image}" alt="">Gatinho</figure>`
+    })
+    
 }
 
 function comparador() { 
