@@ -26,14 +26,15 @@ function error(erro){
 }
 
 function showQuizzes(quiz){
-    console.log(quiz);
     allQuizzes = quiz.data;
     allQuizzes.forEach(element => {
         id = element.id;
-        let quizzesHome = document.querySelector(".all-quizz");
-        quizzesHome.innerHTML += `
-        <div class="quizz ${element.id}" onclick="selectQuiz(${id})">
-        <h2>${element.title}</h2>
+        let quizzes = document.querySelector(".all-quizz");
+        quizzes.innerHTML += `
+        <div class="quizz ${element.id}" onclick="selectQuiz(${element.id})">
+            <h2>${element.title}</h2>
+            <div class="mask"></div>
+            <img class="quizz-img" src="${element.image}"/>
         </div>`
     });
 }
@@ -76,6 +77,7 @@ function optionsQuizz(quizz){
     let textQuestion = quizz.data.title;
     // console.log(textQuestion);
     questions = questions.sort(comparador);
+<<<<<<< HEAD
     // for(j = 0; j<questions.length; j++){
 
         for(let i = 0; i < questions.length; i++){
@@ -85,6 +87,13 @@ function optionsQuizz(quizz){
             optionsQuizz.innerHTML += `<figure><img src="${urlimage}" alt="">${nameImage}</figure>`
         }
     // }
+=======
+    console.log(questions);
+    questions.forEach(element =>{
+        let urlimage = questions[0].answers[0].image;
+        optionsQuizz.innerHTML = `<figure><img src="${element.answers.image}" alt="">Gatinho</figure>`
+    })
+>>>>>>> 8edb5c0da7c378f22687ecadb62d5b57d24331d6
     
 }
 
