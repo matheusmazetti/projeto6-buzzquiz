@@ -93,6 +93,7 @@ main{
     display: flex;
 }
 .quizz h2{
+    width: 300px;
     align-self: flex-end;
     color: #FFFFFF;
     margin-bottom: 10px;
