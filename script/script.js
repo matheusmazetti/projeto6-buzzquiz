@@ -63,32 +63,32 @@ function bannerQuizz(quizz){
 
 function titleQuizz(quizz){
     let titleQuestion = document.querySelector(".question");
-    console.log(quizz.data);
-    for(let i = 0; i<quizz.data.length;i++){
-        titleQuestion.innerHTML = `<h1>${quizz.data.title}</h1>`;
-        console.log(quizz.data.title);
+    let length = quizz.data.questions.length;
+    // console.log(length);
+    // console.log(quizz.data)
+    // console.log(quizz.data.questions);
+    for(let i = 0; i<length;i++){
+        titleQuestion.innerHTML += `<h1>${quizz.data.questions[i].title}</h1>`;
         optionsQuizz(quizz);
     }
+
 }
 
 function optionsQuizz(quizz){
     let optionsQuizz = document.querySelector(".options");
-    let questions = quizz.data.questions;
-    let textQuestion = quizz.data.title;
-    // console.log(textQuestion);
-    questions = questions.sort(comparador);
-    // for(j = 0; j<questions.length; j++){
+    console.log(quizz);
+    let length = quizz.data.questions.length;
+        for(let i = 0; i < length; i++){
+            for(let j = 0; j < length; j++){
+                let urlimage = quizz.data.questions[i].answers[j].image;
+                let nameImage = quizz.data.questions[i].answers[j].text;
+                console.log(urlimage)
+                console.log(nameImage)
 
-        for(let i = 0; i < questions.length; i++){
-            titleQuestion.innerHTML = `<h1>${quizz.data.title}</h1>`;
-            let urlimage = questions[i].answers[i].image;
-            let nameImage = questions[i].answers[i].text;
+    
             optionsQuizz.innerHTML += `<figure><img src="${urlimage}" alt="">${nameImage}</figure>`
-        }
-    // }
-    
-
-    
+            }
+        }   
 }
 
 function comparador() { 
