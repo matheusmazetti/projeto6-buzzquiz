@@ -30,7 +30,7 @@
 
         <section class="all-quizz">
             <h1>Todos os quizzes</h1>
-            <div class="quizz simpsons">
+            <div class="quizz simpsons" onclick="selectQuiz()">
                 <h2>Acerte os personagens corretos dos Simpsons e prove o seu amor</h2>
             </div>
             <div class="quizz simpsons">
@@ -109,75 +109,79 @@
     </main>
 
     <!-- tela para criar o próprio quizz  -->
-    <main class="create-quizz-1 hidden">
-        <h1 class="title">Comece pelo começo</h1>
-        <input type="text" placeholder="Título do seu quizz">
-        <input type="text" placeholder="URL da imagem do seu quizz">
-        <input type="text" placeholder="Quantidade de perguntas do quizz">
-        <input type="text" placeholder="Quantidade de níveis do quizz">
-        <button>Prosseguir para criar as perguntas</button>
-    </main>
-    
-    <main class="create-quizz-2 hidden">
-        <h1 class="title">Crie suas perguntas</h1>
-        <div>
-            <h2>Pergunta 1</h2>
-            <input type="text" placeholder="Texto da pergunta">
-            <input type="text" placeholder="Cor de fundo da pergunta">
-        </div>
-        <div class="q">
-            <h2>Resposta correta</h2>
-            <input type="text" placeholder="Resposta correta">
-            <input type="text" placeholder="URL da imagem">
-        </div>
-        <div class="q">
-            <h2>Respostas Incorretas</h2>
-            <input type="text" placeholder="Resposta incorreta 1">
-            <input type="text" placeholder="URL da imagem 1">
-        </div>
-        <div class="q">
-            <input type="text" placeholder="Resposta incorreta 2">
-            <input type="text" placeholder="URL da imagem 2">
-        </div>
-        <div class="q">
-            <input type="text" placeholder="Resposta incorreta 3">
-            <input type="text" placeholder="URL da imagem 3">
-        </div>
-        <div class="q2">
-            <h2>Pergunta 2</h2>
-            <img src="./assets/edit.png" alt="editar">
-        </div>
-        <div class="q2">
-            <h2>Pergunta 3</h2>
-            <img src="./assets/edit.png" alt="edit">
-        </div>
-        <button>Prosseguir para criar as perguntas</button>
-    </main>
+    <section class="create-quizz">
+        <main class="create-quizz-1 hidden">
+            <h1 class="title">Comece pelo começo</h1>
+            <input type="text" placeholder="Título do seu quizz">
+            <input type="text" placeholder="URL da imagem do seu quizz">
+            <input type="text" placeholder="Quantidade de perguntas do quizz">
+            <input type="text" placeholder="Quantidade de níveis do quizz">
+            <button>Prosseguir para criar as perguntas</button>
+        </main>
+        
+        <main class="create-quizz-2 hidden">
+            <h1 class="title">Crie suas perguntas</h1>
+            <div>
+                <h2>Pergunta 1</h2>
+                <input type="text" placeholder="Texto da pergunta">
+                <input type="text" placeholder="Cor de fundo da pergunta">
+            </div>
+            <div class="q">
+                <h2>Resposta correta</h2>
+                <input type="text" placeholder="Resposta correta">
+                <input type="text" placeholder="URL da imagem">
+            </div>
+            <div class="q">
+                <h2>Respostas Incorretas</h2>
+                <input type="text" placeholder="Resposta incorreta 1">
+                <input type="text" placeholder="URL da imagem 1">
+            </div>
+            <div class="q">
+                <input type="text" placeholder="Resposta incorreta 2">
+                <input type="text" placeholder="URL da imagem 2">
+            </div>
+            <div class="q">
+                <input type="text" placeholder="Resposta incorreta 3">
+                <input type="text" placeholder="URL da imagem 3">
+            </div>
+            <div class="q2">
+                <h2>Pergunta 2</h2>
+                <img src="./assets/edit.png" alt="editar">
+            </div>
+            <div class="q2">
+                <h2>Pergunta 3</h2>
+                <img src="./assets/edit.png" alt="edit">
+            </div>
+            <button>Prosseguir para criar as perguntas</button>
+        </main>
 
-    <main class="create-quizz-3 hidden">
-        <h1>Agora decida os níveis</h1>
-        <div class="n1">
-            <h2>Nível 1</h2>
-            <input type="text" placeholder="Título do nível">
-            <input type="text" placeholder="% de acerto mínima">
-            <input type="text" placeholder="URL da imagem do nível">
-            <textarea name="text" id="text" cols="30" rows="15" placeholder="Descrição do nível"></textarea>
-        </div>
-        <div class="n2">
-            <h2>Nível 2</h2>
-            <img src="./assets/edit.png" alt="edit">
-        </div>
-        <div class="n2">
-            <h2>Nível 3</h2>
-            <img src="./assets/edit.png" alt="edit">
-        </div>
-        <button>Prosseguir para criar as perguntas</button>
-    </main>
+        <main class="create-quizz-3 hidden">
+            <h1>Agora decida os níveis</h1>
+            <div class="n1">
+                <h2>Nível 1</h2>
+                <input type="text" placeholder="Título do nível">
+                <input type="text" placeholder="% de acerto mínima">
+                <input type="text" placeholder="URL da imagem do nível">
+                <textarea name="text" id="text" cols="30" rows="15" placeholder="Descrição do nível"></textarea>
+            </div>
+            <div class="n2">
+                <h2>Nível 2</h2>
+                <img src="./assets/edit.png" alt="edit">
+            </div>
+            <div class="n2">
+                <h2>Nível 3</h2>
+                <img src="./assets/edit.png" alt="edit">
+            </div>
+            <button>Prosseguir para criar as perguntas</button>
+        </main>
 
-    <main class="create-quizz-4">
-        <h1>Seu quizz está pronto</h1>
-        <button>Acessar quizz</button>
-        <h2>Voltar para a home</h2>
-    </main>
+        <main class="create-quizz-4">
+            <h1>Seu quizz está pronto</h1>
+            <button>Acessar quizz</button>
+            <h2>Voltar para a home</h2>
+        </main>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script/script.js"></script>
 </body>
 </html>
