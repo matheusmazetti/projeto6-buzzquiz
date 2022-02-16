@@ -1,5 +1,6 @@
 let allQuizzes = [];
 let id = null;
+let hit = null;
 
 function selectQuiz(id){
     let addHidden = document.querySelector(".list-quizz-1");
@@ -61,18 +62,29 @@ function bannerQuizz(quizz){
 
 function titleQuizz(quizz){
     let titleQuestion = document.querySelector(".question");
-    titleQuestion.innerHTML = `<h1>${quizz.data.title}</h1>`;
-    optionsQuizz(quizz)
+    console.log(quizz.data);
+    for(let i = 0; i<quizz.data.length;i++){
+        titleQuestion.innerHTML = `<h1>${quizz.data.title}</h1>`;
+        console.log(quizz.data.title);
+        optionsQuizz(quizz);
+    }
 }
 
 function optionsQuizz(quizz){
     let optionsQuizz = document.querySelector(".options");
     let questions = quizz.data.questions;
+    let textQuestion = quizz.data.title;
+    // console.log(textQuestion);
     questions = questions.sort(comparador);
-    questions.forEach(element =>{
-        let urlimage = questions[0].answers[0].image;
-        optionsQuizz.innerHTML = `<figure><img src="${element.answers.image}" alt="">Gatinho</figure>`
-    })
+    // for(j = 0; j<questions.length; j++){
+
+        for(let i = 0; i < questions.length; i++){
+            titleQuestion.innerHTML = `<h1>${quizz.data.title}</h1>`;
+            let urlimage = questions[i].answers[i].image;
+            let nameImage = questions[i].answers[i].text;
+            optionsQuizz.innerHTML += `<figure><img src="${urlimage}" alt="">${nameImage}</figure>`
+        }
+    // }
     
 }
 
