@@ -25,14 +25,15 @@ function error(erro){
 }
 
 function showQuizzes(quiz){
-    console.log(quiz);
     allQuizzes = quiz.data;
     allQuizzes.forEach(element => {
         id = element.id;
-        let quizzesHome = document.querySelector(".all-quizz");
-        quizzesHome.innerHTML += `
-        <div class="quizz ${element.id}" onclick="selectQuiz(${id})">
-        <h2>${element.title}</h2>
+        let quizzes = document.querySelector(".all-quizz");
+        quizzes.innerHTML += `
+        <div class="quizz ${element.id}" onclick="selectQuiz(${element.id})">
+            <h2>${element.title}</h2>
+            <div class="mask"></div>
+            <img class="quizz-img" src="${element.image}"/>
         </div>`
     });
 }
@@ -69,6 +70,7 @@ function optionsQuizz(quizz){
     let optionsQuizz = document.querySelector(".options");
     let questions = quizz.data.questions;
     questions = questions.sort(comparador);
+    console.log(questions);
     questions.forEach(element =>{
         let urlimage = questions[0].answers[0].image;
         optionsQuizz.innerHTML = `<figure><img src="${element.answers.image}" alt="">Gatinho</figure>`
