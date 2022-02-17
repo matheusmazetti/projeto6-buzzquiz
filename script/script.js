@@ -1,8 +1,13 @@
+//variáveis globais
 let allQuizzes = [];
 let id = null;
 let hit = null;
 let userQuiz = null;
 let objQuiz = {};
+let quizzSelect = [];
+let click = 0;
+let answer = null;
+let answers = [];
 
 function selectQuiz(id){
     let addHidden = document.querySelector(".list-quizz-1");
@@ -70,30 +75,31 @@ function returnHome(){
 
 // inserir os elementos, banner, título, perguntas e respostas da página do quizz dinâmicamente
 function captureQuizz(id){
-    let quizzSelect = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
-    quizzSelect.then(bannerQuizz)
-    quizzSelect.catch(deuxabu);
+    quizz = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
+    quizz.then(bannerQuizz);
+    quizz.catch(deuxabu);
 }
 function deuxabu(){
     alert("xabu");
 }
 function bannerQuizz(quizz){
+    quizzSelect = quizz;
     let banner = document.querySelector(".banner-quizz");
-    let url = quizz.data.image;
+    let url = quizzSelect.data.image;
     banner.style.backgroundImage = `url('${url}')`;
-    titleQuizz(quizz)
+    titleQuizz()
 }
 
-function titleQuizz(quizz){
+function titleQuizz(){
     let titleQuestion = document.querySelector(".question");
-    let length = quizz.data.questions.length;
+    let length = quizzSelect.data.questions.length;
     for(let i = 0; i<length;i++){
-        titleQuestion.innerHTML += `<h1 id='color${i}'>${quizz.data.questions[i].title}</h1>
+        titleQuestion.innerHTML += `<h1 id='color${i}'>${quizzSelect.data.questions[i].title}</h1>
                                     <div class="options" id='option${i}' ></div>
         `;
-        let color = quizz.data.questions[i].color;
+        let color = quizzSelect.data.questions[i].color;
         backgroundColor(i,color);
-        optionsQuizz(quizz, i);
+        optionsQuizz(i);
     }
 }
 function backgroundColor(i,color){
@@ -101,13 +107,15 @@ function backgroundColor(i,color){
     background.style.backgroundColor += `${color}`;
 }
 
-function optionsQuizz(quizz, i){
+function optionsQuizz(i){
     let optionQuizz = document.querySelector(`#option${i}`)
-    let length = quizz.data.questions.length;
+    let length = quizzSelect.data.questions.length;
             for(let j = 0; j < length; j++){
-                let urlimage = quizz.data.questions[i].answers[j].image;
-                let nameImage = quizz.data.questions[i].answers[j].text;
-                optionQuizz.innerHTML += `<figure><img class='img-anwers' src="${urlimage}" alt="">${nameImage}</figure>`;
+                let property = quizzSelect.data.questions[i].answers[j];
+                let urlimage = property.image;
+                let nameImage = property.text;
+                answer = property.isCorrectAnswer;
+                optionQuizz.innerHTML += `<figure><img class='img-answers' id='img${j}' onclick='opacityImages(${answer}, ${i},${j})' src="${urlimage}" alt="">${nameImage}</figure>`;
             }
 }
 
@@ -115,4 +123,18 @@ function comparador() {
 	return Math.random() - 0.5; 
 }
 
-//fazer a validação de respostas certas
+// fazer a validação de respostas certas
+
+function opacityImages(answer,i, j){
+    if(click==i){
+        let images = document.querySelectorAll(`#option${i} .img-answers`);
+        console.log(images);
+        images.forEach(element =>{
+            element.style.opacity = "0.3";
+        })
+        let image = document.querySelector(`#option${i} #img${j}`)
+        image.style.opacity = '1';
+        click++;
+        answers.push(answer)
+    }
+}
