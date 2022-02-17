@@ -48,12 +48,15 @@ function returnHome(){
     addHidden.classList.add("hidden");
 }
 
+// inserir os elementos, banner, título, perguntas e respostas da página do quizz dinâmicamente
 function captureQuizz(id){
     let quizzSelect = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
     quizzSelect.then(bannerQuizz)
+    quizzSelect.catch(deuxabu);
 }
-
-// inserir os elementos, banner, título, perguntas e respostas da página do quizz dinâmicamente
+function deuxabu(){
+    alert("xabu");
+}
 function bannerQuizz(quizz){
     let banner = document.querySelector(".banner-quizz");
     let url = quizz.data.image;
@@ -64,31 +67,32 @@ function bannerQuizz(quizz){
 function titleQuizz(quizz){
     let titleQuestion = document.querySelector(".question");
     let length = quizz.data.questions.length;
-    // console.log(length);
-    // console.log(quizz.data)
-    // console.log(quizz.data.questions);
     for(let i = 0; i<length;i++){
-        titleQuestion.innerHTML += `<h1>${quizz.data.questions[i].title}</h1>`;
-        optionsQuizz(quizz);
+        titleQuestion.innerHTML += `<h1 id='color${i}'>${quizz.data.questions[i].title}</h1>
+                                    <div class="options" id='option${i}' ></div>
+        `;
+        let color = quizz.data.questions[i].color;
+        backgroundColor(i,color);
+        optionsQuizz(quizz, i);
     }
-
+}
+function backgroundColor(i,color){
+    let background = document.querySelector(`#color${i}`);
+    background.style.backgroundColor += `${color}`;
 }
 
-function optionsQuizz(quizz){
-    let optionsQuizz = document.querySelector(".options");
-    console.log(quizz);
+function optionsQuizz(quizz, i){
+    let optionQuizz = document.querySelector(`#option${i}`)
     let length = quizz.data.questions.length;
-        for(let i = 0; i < length; i++){
             for(let j = 0; j < length; j++){
                 let urlimage = quizz.data.questions[i].answers[j].image;
                 let nameImage = quizz.data.questions[i].answers[j].text;
-                console.log(urlimage)
-                console.log(nameImage)
-                optionsQuizz.innerHTML += `<figure><img src="${urlimage}" alt="">${nameImage}</figure>`
+                optionQuizz.innerHTML += `<figure><img class='img-anwers' src="${urlimage}" alt="">${nameImage}</figure>`;
             }
-        }   
 }
 
 function comparador() { 
 	return Math.random() - 0.5; 
 }
+
+//fazer a validação de respostas certas
