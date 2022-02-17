@@ -84,9 +84,7 @@ function optionsQuizz(quizz){
                 let nameImage = quizz.data.questions[i].answers[j].text;
                 console.log(urlimage)
                 console.log(nameImage)
-
-    
-            optionsQuizz.innerHTML += `<figure><img src="${urlimage}" alt="">${nameImage}</figure>`
+                optionsQuizz.innerHTML += `<figure><img src="${urlimage}" alt="">${nameImage}</figure>`
             }
         }   
 }
