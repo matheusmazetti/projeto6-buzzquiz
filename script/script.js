@@ -9,9 +9,10 @@ let click = 0;
 let answer = null;
 let answers = [];
 let legthQuizz = null;
-let msgEnd = '';
+let nivel = '';
 let imgEnd = '';
 let percent = null;
+let descript = null;
 
 function selectQuiz(id){
     let addHidden = document.querySelector(".list-quizz-1");
@@ -69,12 +70,13 @@ function showQuizzes(quiz){
 }
 
 function returnHome(){
-    let addHidden = document.querySelector(".list-quizz-1");
-    addHidden.classList.remove("hidden");
-    addHidden = document.querySelector(".list-quizz-2");
-    addHidden.classList.remove("hidden");
-    addHidden = document.querySelector(".pag-quizz");
-    addHidden.classList.add("hidden");
+    window.location.reload();
+    // let addHidden = document.querySelector(".list-quizz-1");
+    // addHidden.classList.remove("hidden");
+    // addHidden = document.querySelector(".list-quizz-2");
+    // addHidden.classList.remove("hidden");
+    // addHidden = document.querySelector(".pag-quizz");
+    // addHidden.classList.add("hidden");
 }
 
 // inserir os elementos, banner, título, perguntas e respostas da página do quizz dinâmicamente
@@ -147,7 +149,7 @@ function opacityImages(answer,i, j){
 
 function textRed(i){
     let txt = document.querySelectorAll(`#option${i} figure`)
-    // console.log(txt);
+    // :/
 }
 function textGreen(i,j){
     let textImagee = document.querySelector(`#option${i} #fig${j}`);
@@ -158,24 +160,23 @@ function screenEnd(){
     if(answers.length == quizzSelect.data.questions.length){
         percentHits();
         messageEnd();
-        let pag = document.querySelector('.EndQuizz');
+        let pag = document.querySelector('.endQuizz');
         pag.classList.remove('hidden');
         let pagQZ = document.querySelector(".pag-quizz");
         pagQZ.classList.add("hidden");
     }
 }
 function percentHits(){
-    
     answers.forEach(element =>{
         if(element == true){
             hit++;
         }
     })
-
     percent = (hit/answers.length)*100;
     percent = Math.round(percent);
 }
 
+//exibir a tela final do jogo
 function messageEnd(){
     console.log(quizzSelect)
     for(let i = 0; i<quizzSelect.data.levels.length; i++){
@@ -184,18 +185,38 @@ function messageEnd(){
         let img = quizzSelect.data.levels[i].image;
         // console.log(msg);
         if(percent>=valueLevel){
-            msgEnd = `${percent}% de acerto, ${msg}`;
+            nivel = `${percent}% de acerto`;
             imgEnd = img;
+            descript = msg;
         }
     }
     innerScreen()
 }
 function innerScreen(){
-    let pag = document.querySelector('.EndQuizz');
+    let pag = document.querySelector('.endQuizzResult');
     pag.innerHTML += `
-                <h1>${msgEnd}</h1>
+                <h1>${nivel}</h1>
                 <img src='${imgEnd}'>
+                <h2> ${descript} </h2>
     `
-    console.log(msgEnd)
-    console.log(imgEnd)
+}
+
+function returnQuizz(){
+    let endScreen = document.querySelector(".endQuizz");
+    let pagQuizz = document.querySelector(".pag-quizz");
+    endScreen.classList.add("hidden");
+    pagQuizz.classList.remove("hidden");
+    click = 0;
+    let pics = document.querySelectorAll("figure img");
+    pics.forEach(element =>{
+        element.style.opacity = "1";
+    })
+    let answer = null;
+    let answers = [];
+    let legthQuizz = null;
+    let nivel = '';
+    let imgEnd = '';
+    let percent = null;
+    let descript = null; 
+
 }
