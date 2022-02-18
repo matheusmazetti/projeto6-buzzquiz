@@ -2,6 +2,8 @@
 let allQuizzes = [];
 let id = null;
 let hit = null;
+let userQuiz = null;
+let objQuiz = {};
 let quizzSelect = [];
 let click = 0;
 let answer = null;
@@ -21,6 +23,24 @@ function selectQuiz(id){
     addHidden = document.querySelector(".pag-quizz");
     addHidden.classList.remove("hidden");
     captureQuizz(id);
+}
+
+function enterQuizCreation(){
+    let addHidden = document.querySelector(".list-quizz-1");
+    addHidden.classList.add("hidden");
+    addHidden = document.querySelector(".list-quizz-2");
+    addHidden.classList.add("hidden");
+    addHidden = document.querySelector(".create-quizz");
+    addHidden.classList.remove("hidden");
+    addHidden = document.querySelector(".pag-quizz");
+    addHidden.classList.add("hidden");
+    addHidden = document.querySelector(".create-quizz-1");
+    addHidden.classList.remove("hidden");
+}
+
+function createQuiz1(){
+    objQuiz.title = document.querySelector(".quizTitle").value;
+    objQuiz.image = document.querySelector(".quizImage").value;
 }
 
 function getQuizzes(){

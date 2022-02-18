@@ -23,7 +23,7 @@
                 <p>Você não criou nenhum</p>
                 <p>quizz ainda :(</p>
             </div>
-            <div class="create" onclick="">
+            <div class="create" onclick="enterQuizCreation()">
                 <strong>Criar quizz</strong>
             </div>
         </section>
@@ -71,11 +71,11 @@
     <section class="create-quizz hidden">
         <main class="create-quizz-1 hidden">
             <h1 class="title">Comece pelo começo</h1>
-            <input type="text" placeholder="Título do seu quizz">
-            <input type="text" placeholder="URL da imagem do seu quizz">
-            <input type="text" placeholder="Quantidade de perguntas do quizz">
-            <input type="text" placeholder="Quantidade de níveis do quizz">
-            <button>Prosseguir para criar as perguntas</button>
+            <input class="quizTitle" type="text" placeholder="Título do seu quizz">
+            <input class="quizImage" type="text" placeholder="URL da imagem do seu quizz">
+            <input class="quizQuestions" type="text" placeholder="Quantidade de perguntas do quizz">
+            <input class="quizLevels" type="text" placeholder="Quantidade de níveis do quizz">
+            <button onclick="createQuiz1()">Prosseguir para criar as perguntas</button>
         </main>
         
         <main class="create-quizz-2 hidden">
@@ -134,7 +134,7 @@
             <button>Prosseguir para criar as perguntas</button>
         </main>
 
-        <main class="create-quizz-4">
+        <main class="create-quizz-4 hidden">
             <h1>Seu quizz está pronto</h1>
             <button>Acessar quizz</button>
             <h2>Voltar para a home</h2>
