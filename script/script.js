@@ -42,6 +42,14 @@ function enterQuizCreation(){
 function createQuiz1(){
     objQuiz.title = document.querySelector(".quizTitle").value;
     objQuiz.image = document.querySelector(".quizImage").value;
+    let qtdPerguntas = document.querySelector(".quizQuestions").value;
+    let qtdLevels = document.querySelector(".quizLevels").value;
+    console.log(qtdPerguntas);
+    if(qtdPerguntas < 3 || objQuiz.title === "" || objQuiz.image === "" || qtdLevels < 2){
+        alert("erro");
+    } else {
+        alert("sucesso");
+    }
 }
 
 function getQuizzes(){
