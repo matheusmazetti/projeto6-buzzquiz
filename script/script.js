@@ -6,6 +6,10 @@ let quizzSelect = [];
 let click = 0;
 let answer = null;
 let answers = [];
+let legthQuizz = null;
+let msgEnd = '';
+let imgEnd = '';
+let percent = null;
 
 function selectQuiz(id){
     let addHidden = document.querySelector(".list-quizz-1");
@@ -89,13 +93,13 @@ function backgroundColor(i,color){
 
 function optionsQuizz(i){
     let optionQuizz = document.querySelector(`#option${i}`)
-    let length = quizzSelect.data.questions.length;
+    let length = quizzSelect.data.questions[i].answers.length;
             for(let j = 0; j < length; j++){
                 let property = quizzSelect.data.questions[i].answers[j];
                 let urlimage = property.image;
                 let nameImage = property.text;
                 answer = property.isCorrectAnswer;
-                optionQuizz.innerHTML += `<figure><img class='img-answers' id='img${j}' onclick='opacityImages(${answer}, ${i},${j})' src="${urlimage}" alt="">${nameImage}</figure>`;
+                optionQuizz.innerHTML += `<figure id='fig${j}'><img class='img-answers' id='img${j}' onclick='opacityImages(${answer}, ${i},${j})' src="${urlimage}" alt="">${nameImage}</figure>`;
             }
 }
 
@@ -103,18 +107,75 @@ function comparador() {
 	return Math.random() - 0.5; 
 }
 
-// fazer a validação de respostas certas
-
+//adicionar o estilo quando selecionar uma opção
 function opacityImages(answer,i, j){
     if(click==i){
         let images = document.querySelectorAll(`#option${i} .img-answers`);
-        console.log(images);
         images.forEach(element =>{
             element.style.opacity = "0.3";
         })
         let image = document.querySelector(`#option${i} #img${j}`)
         image.style.opacity = '1';
         click++;
-        answers.push(answer)
+        answers.push(answer);
+        let textImage = document.querySelector(`#fig${j}`).innerText; 
+        // console.log(textImage);
+        textRed(i);
+        screenEnd();
     }
+}
+
+function textRed(i){
+    let txt = document.querySelectorAll(`#option${i} figure`)
+    // console.log(txt);
+}
+function textGreen(i,j){
+    let textImagee = document.querySelector(`#option${i} #fig${j}`);
+}
+
+// validar o número de respostas corretas
+function screenEnd(){
+    if(answers.length == quizzSelect.data.questions.length){
+        percentHits();
+        messageEnd();
+        let pag = document.querySelector('.EndQuizz');
+        pag.classList.remove('hidden');
+        let pagQZ = document.querySelector(".pag-quizz");
+        pagQZ.classList.add("hidden");
+    }
+}
+function percentHits(){
+    
+    answers.forEach(element =>{
+        if(element == true){
+            hit++;
+        }
+    })
+
+    percent = (hit/answers.length)*100;
+    percent = Math.round(percent);
+}
+
+function messageEnd(){
+    console.log(quizzSelect)
+    for(let i = 0; i<quizzSelect.data.levels.length; i++){
+        let valueLevel = quizzSelect.data.levels[i].minValue;
+        let msg = quizzSelect.data.levels[i].text;
+        let img = quizzSelect.data.levels[i].image;
+        // console.log(msg);
+        if(percent>=valueLevel){
+            msgEnd = `${percent}% de acerto, ${msg}`;
+            imgEnd = img;
+        }
+    }
+    innerScreen()
+}
+function innerScreen(){
+    let pag = document.querySelector('.EndQuizz');
+    pag.innerHTML += `
+                <h1>${msgEnd}</h1>
+                <img src='${imgEnd}'>
+    `
+    console.log(msgEnd)
+    console.log(imgEnd)
 }

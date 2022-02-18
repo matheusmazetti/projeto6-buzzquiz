@@ -191,9 +191,17 @@ figure{
     line-height: 15px;
     text-align: left;
 }
+.red{
+    color: red;
+}
 .img-answers{
     Width: 163px;
     height: 113px;
+}
+.youWin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .result{
     width: 340px;
