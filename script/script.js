@@ -6,6 +6,7 @@ let userQuiz = null;
 let objQuiz = {};
 let quizzSelect = [];
 let click = 0;
+let objQuestion = [];
 let answer = null;
 let answers = [];
 let legthQuizz = null;
@@ -55,7 +56,47 @@ function createQuiz1(){
 }
 
 function createQuiz2(qtd){
-    
+    let obj = {};
+    let objRespostas = [];
+    for(i = 1; i <= qtd; i++){
+        let titulo = document.querySelector(`.texto-pergunta-${i}`).value;
+        let cor = document.querySelector(`.cor-pergunta-${i}`).value;
+        let correct = document.querySelector(`.resposta-correta-pergunta-${i}`).value;
+        let correctImage = document.querySelector(`.imagem-correta-pergunta-${i}`).value;
+        let incorrect1 = document.querySelector(`.resposta-errada-1-pergunta-${i}`).value;
+        let incorrect1Image = document.querySelector(`.imagem-errada-1-pergunta-${i}`).value;
+        let incorrect2 = document.querySelector(`.resposta-errada-2-pergunta-${i}`).value;
+        let incorrect2Image = document.querySelector(`.imagem-errada-2-pergunta-${i}`).value;
+        let incorrect3 = document.querySelector(`.resposta-errada-3-pergunta-${i}`).value;
+        let incorrect3Image = document.querySelector(`.imagem-errada-3-pergunta-${i}`).value;
+        objRespostas[0] = {
+            title: correct,
+            image: correctImage,
+            isCorrectAnswer: true
+        }
+        objRespostas[1] = {
+            title: incorrect1,
+            image: incorrect1Image,
+            isCorrectAnswer: false
+        }
+        objRespostas[2] = {
+            title: incorrect2,
+            image: incorrect2Image,
+            isCorrectAnswer: false
+        } 
+        objRespostas[3] = {
+            title: incorrect3,
+            image: incorrect3Image,
+            isCorrectAnswer: false
+        }
+        obj = {
+            title: titulo,
+            color: cor,
+            answers: objRespostas
+        }
+        objQuestion[i-1] = obj;
+    }
+    objQuiz.questions = objQuestion;
 }
 
 function enterQuizCreation2(){
