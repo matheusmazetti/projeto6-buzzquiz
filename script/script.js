@@ -45,11 +45,56 @@ function createQuiz1(){
     let qtdPerguntas = document.querySelector(".quizQuestions").value;
     let qtdLevels = document.querySelector(".quizLevels").value;
     console.log(qtdPerguntas);
-    if(qtdPerguntas < 3 || objQuiz.title === "" || objQuiz.image === "" || qtdLevels < 2){
+    if(qtdPerguntas < 3 || objQuiz.title === "" || objQuiz.image === "" || qtdLevels < 2 ||
+    objQuiz.title.length < 20 || objQuiz.title.length > 65 || !objQuiz.image.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm)){
         alert("erro");
     } else {
-        alert("sucesso");
+        enterQuizCreation2();
+        showQuestionsqtd(qtdPerguntas)
     }
+}
+
+function createQuiz2(qtd){
+    
+}
+
+function enterQuizCreation2(){
+    let addHidden = document.querySelector(".create-quizz-1");
+    addHidden.classList.add("hidden");
+    addHidden = document.querySelector(".create-quizz-2");
+    addHidden.classList.remove("hidden");
+}
+
+function showQuestionsqtd(qtd){
+    for(let i = 1; i <= qtd; i++){
+        let showQuestions = document.querySelector(".create-quizz-2");
+        showQuestions.innerHTML += `
+        <div class="box-pergunta ${i}">
+            <h2>Pergunta ${i}</h2>
+            <input class="texto-pergunta-${i}" type="text" placeholder="Texto da pergunta">
+            <input class="cor-pergunta-${i}" type="text" placeholder="Cor de fundo da pergunta">
+            <div class="q">
+                <h2>Resposta correta</h2>
+                <input class="resposta-correta-pergunta-${i}" type="text" placeholder="Resposta correta">
+                <input class="imagem-correta-pergunta-${i}" type="text" placeholder="URL da imagem">
+            </div>
+            <div class="q">
+                <h2>Respostas Incorretas</h2>
+                <input class="resposta-errada-1-pergunta-${i}" type="text" placeholder="Resposta incorreta 1">
+                <input class="imagem-errada-1-pergunta-${i}" type="text" placeholder="URL da imagem 1">
+            </div>
+            <div class="q">
+                <input class="resposta-errada-2-pergunta-${i}" type="text" placeholder="Resposta incorreta 2">
+                <input class="imagem-errada-2-pergunta-${i}" type="text" placeholder="URL da imagem 2">
+            </div>
+            <div class="q">
+                <input class="resposta-errada-3-pergunta-${i}" type="text" placeholder="Resposta incorreta 3">
+                <input class="imagem-errada-3-pergunta-${i}" type="text" placeholder="URL da imagem 3">
+            </div>
+        </div>`;
+    }
+    let showButton = document.querySelector(".create-quizz-2");
+    showButton.innerHTML += `<button onclick="createQuiz2(${qtd})">Prosseguir para criar as perguntas</button>`;
 }
 
 function getQuizzes(){
