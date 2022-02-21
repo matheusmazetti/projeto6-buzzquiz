@@ -51,7 +51,8 @@ function createQuiz1(){
         alert("erro");
     } else {
         enterQuizCreation2();
-        showQuestionsqtd(qtdPerguntas)
+        showQuestionsqtd(qtdPerguntas);
+        showLevels(qtdLevels);
     }
 }
 
@@ -97,12 +98,22 @@ function createQuiz2(qtd){
         objQuestion[i-1] = obj;
     }
     objQuiz.questions = objQuestion;
+    enterQuizCreation3();
 }
 
 function enterQuizCreation2(){
     let addHidden = document.querySelector(".create-quizz-1");
     addHidden.classList.add("hidden");
     addHidden = document.querySelector(".create-quizz-2");
+    addHidden.classList.remove("hidden");
+}
+
+function enterQuizCreation3(){
+    let addHidden = document.querySelector(".create-quizz-1");
+    addHidden.classList.add("hidden");
+    addHidden = document.querySelector(".create-quizz-2");
+    addHidden.classList.add("hidden");
+    addHidden = document.querySelector(".create-quizz-3");
     addHidden.classList.remove("hidden");
 }
 
@@ -136,6 +147,20 @@ function showQuestionsqtd(qtd){
     }
     let showButton = document.querySelector(".create-quizz-2");
     showButton.innerHTML += `<button onclick="createQuiz2(${qtd})">Prosseguir para criar as perguntas</button>`;
+}
+
+function showLevels(qtd){
+    for(let i = 1; i <= qtd; i++){
+        let levels = document.querySelector(".create-quizz-3");
+        levels.innerHTML += `
+        <div class="n1">
+            <h2>Nível ${i}</h2>
+            <input class="titulo-nivel-${i}" type="text" placeholder="Título do nível">
+            <input class="porcentagem-nivel-${i}" type="number" placeholder="% de acerto mínima">
+            <input class="imagem-nivel-${i}" type="text" placeholder="URL da imagem do nível">
+            <textarea class="descricao-nivel-${i}" name="text" id="text" cols="30" rows="15" placeholder="Descrição do nível"></textarea>
+        </div>`
+    }
 }
 
 function getQuizzes(){
