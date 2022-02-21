@@ -6,6 +6,7 @@ let userQuiz = null;
 let objQuiz = {};
 let quizzSelect = [];
 let click = 0;
+let cont = 0;
 let objQuestion = [];
 let objLevels = [];
 let answer = null;
@@ -15,6 +16,8 @@ let nivel = '';
 let imgEnd = '';
 let percent = null;
 let descript = null;
+let pag = document.querySelector('.endQuizzResult');
+
 
 function selectQuiz(id){
     let addHidden = document.querySelector(".list-quizz-1");
@@ -256,8 +259,10 @@ function deuxabu(){
 function bannerQuizz(quizz){
     quizzSelect = quizz;
     let banner = document.querySelector(".banner-quizz");
+    let bannerTitle = document.querySelector(".banner-quizz h1")
+    bannerTitle.innerHTML = quizzSelect.data.title;
     let url = quizzSelect.data.image;
-    banner.style.backgroundImage = `url('${url}')`;
+    banner.style.background = (`linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url('${url}')`);
     titleQuizz()
 }
 
@@ -265,8 +270,8 @@ function titleQuizz(){
     let titleQuestion = document.querySelector(".question");
     let length = quizzSelect.data.questions.length;
     for(let i = 0; i<length;i++){
-        titleQuestion.innerHTML += `<h1 id='color${i}'>${quizzSelect.data.questions[i].title}</h1>
-                                    <div class="options" id='option${i}' ></div>
+        titleQuestion.innerHTML += `<div class= "ask"><h1  id='color${i}'>${quizzSelect.data.questions[i].title}</h1></div>
+                                    <div class="options" id='option${i}'></div>
         `;
         let color = quizzSelect.data.questions[i].color;
         backgroundColor(i,color);
@@ -286,7 +291,10 @@ function optionsQuizz(i){
                 let urlimage = property.image;
                 let nameImage = property.text;
                 answer = property.isCorrectAnswer;
-                optionQuizz.innerHTML += `<figure id='fig${j}'><img class='img-answers' id='img${j}' onclick='opacityImages(${answer}, ${i},${j})' src="${urlimage}" alt="">${nameImage}</figure>`;
+                
+                optionQuizz.innerHTML += `<figure id='fig${j}'>
+                <img class='img-answers' id='img${j}' onclick='opacityImages(${answer},this, ${i},${j})' src="${urlimage}"><p class = '${answer}'>${nameImage}</p>
+                </figure>`;
             }
 }
 
@@ -295,26 +303,41 @@ function comparador() {
 }
 
 //adicionar o estilo quando selecionar uma opção
-function opacityImages(answer,i, j){
-    if(click==i){
-        let images = document.querySelectorAll(`#option${i} .img-answers`);
-        images.forEach(element =>{
-            element.style.opacity = "0.3";
+function opacityImages(answer, element, i, j){
+    if(click == i){
+        let father = element.parentNode.parentNode;
+        let lie = father.querySelectorAll(".false");
+        lie.forEach(element => {
+        element.style.color = 'red';
+        });
+        let bet = father.querySelector(".true");
+        bet.style.color = "green";
+
+        father.querySelectorAll("figure").forEach(element =>{
+            element.style.opacity = '0.3';
         })
-        let image = document.querySelector(`#option${i} #img${j}`)
-        image.style.opacity = '1';
-        click++;
+        element.parentNode.style.opacity = '1';
         answers.push(answer);
-        let textImage = document.querySelector(`#fig${j}`).innerText; 
-        // console.log(textImage);
-        textRed(i);
+        click++;
         screenEnd();
     }
+    // if(click==i){
+    //     let images = document.querySelectorAll(`#option${i} .img-answers`);
+    //     images.forEach(element =>{
+    //         element.style.opacity = "0.3";
+    //     })
+    //     let image = document.querySelector(`#option${i} #img${j}`)
+    //     image.style.opacity = '1';
+    //     click++;
+    //     answers.push(answer);
+    //     let textImage = document.querySelector(`#fig${j}`).innerText; 
+    //     textRed(i);
+    //     screenEnd();
+    // }
 }
 
 function textRed(i){
-    let txt = document.querySelectorAll(`#option${i} figure`)
-    // :/
+    let txt = document.querySelectorAll(`#option${i} figure`);
 }
 function textGreen(i,j){
     let textImagee = document.querySelector(`#option${i} #fig${j}`);
@@ -343,12 +366,11 @@ function percentHits(){
 
 //exibir a tela final do jogo
 function messageEnd(){
-    console.log(quizzSelect)
+    // console.log(quizzSelect)
     for(let i = 0; i<quizzSelect.data.levels.length; i++){
         let valueLevel = quizzSelect.data.levels[i].minValue;
         let msg = quizzSelect.data.levels[i].text;
         let img = quizzSelect.data.levels[i].image;
-        // console.log(msg);
         if(percent>=valueLevel){
             nivel = `${percent}% de acerto`;
             imgEnd = img;
@@ -358,7 +380,6 @@ function messageEnd(){
     innerScreen()
 }
 function innerScreen(){
-    let pag = document.querySelector('.endQuizzResult');
     pag.innerHTML += `
                 <h1>${nivel}</h1>
                 <img src='${imgEnd}'>
@@ -372,16 +393,19 @@ function returnQuizz(){
     endScreen.classList.add("hidden");
     pagQuizz.classList.remove("hidden");
     click = 0;
-    let pics = document.querySelectorAll("figure img");
+    let pics = document.querySelectorAll("figure");
+    console.log(pics)
+    console.log(pics);
     pics.forEach(element =>{
         element.style.opacity = "1";
     })
-    let answer = null;
-    let answers = [];
-    let legthQuizz = null;
-    let nivel = '';
-    let imgEnd = '';
-    let percent = null;
-    let descript = null; 
-
+    answer = null;
+    answers = [];
+    legthQuizz = null;
+    nivel = '';
+    imgEnd = '';
+    percent = null;
+    descript = null; 
+    hit = 0;
+    pag.innerHTML="";
 }

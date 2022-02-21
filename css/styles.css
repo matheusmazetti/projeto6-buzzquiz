@@ -153,8 +153,7 @@ main{
 .banner-quizz{
     width: 100%;
     height: 142px;
-    /* background-image: url("../assets/potterhead.png"); */
-    /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 60%, #000000 100%), url("../assets/potterhead.png"); */
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(image.png);
     background-size: cover;
     background-repeat: no-repeat;
     font-family: Roboto;
@@ -165,18 +164,26 @@ main{
     align-items: center;
     justify-content: center;
 }
-.question h1{
+.banner-quizz h1{
+    font-family: Roboto;
+    font-weight: normal;
+    font-size: 19px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.ask h1{
     margin-top: 42px;
     width: 340px;
     height: 89px;
-    background-color: #434CA0;
     display: flex;
     align-items: center;
+    justify-content: center;
     font-family: Roboto;
     font-size: 19px;
     line-height: 22px;
     color: #FFFFFF;
 }
+
 .options{
     width: 340px;
     margin-top: 12px;
@@ -193,6 +200,9 @@ figure{
 }
 .red{
     color: red;
+}
+.green{
+    color: green;
 }
 .img-answers{
     Width: 163px;
@@ -481,4 +491,8 @@ main input::placeholder{
 .create-quizz-4 img{
     width: 341px;
     height: 181px;
+}
+
+.ask{
+    text-align: center;
 }
