@@ -117,19 +117,32 @@ function createQuiz2(qtd){
 }
 
 function createQuiz3(qtd){
+    let erro = null;
+    let arrayporcentagem = [];
     for(i = 1; i <= qtd; i++){
         let tituloNivel = document.querySelector(`.titulo-nivel-${i}`).value;
         let porcentagem = parseInt(document.querySelector(`.porcentagem-nivel-${i}`).value);
+        arrayporcentagem.push(porcentagem);
         let imagem = document.querySelector(`.imagem-nivel-${i}`).value;
         let descricao = document.querySelector(`.descricao-nivel-${i}`).value;
-        objLevels[i-1] = {
-            title: tituloNivel,
-            image: imagem,
-            text: descricao,
-            minValue: porcentagem
+        if(tituloNivel.length < 10 || porcentagem > 100 || porcentagem < 0 || descricao.length < 30){
+            erro = 1;
+            i = 10000;
+            alert("Erro");
+        } else {
+            objLevels[i-1] = {
+                title: tituloNivel,
+                image: imagem,
+                text: descricao,
+                minValue: porcentagem
+            }
         }
     }
-    objQuiz.levels = objLevels;
+    if(arrayporcentagem.includes(0) && erro == null){
+        objQuiz.levels = objLevels;
+    } else {
+        alert("Erro");
+    }
 }
 
 function enterQuizCreation2(){
