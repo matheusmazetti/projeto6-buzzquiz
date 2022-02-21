@@ -51,7 +51,7 @@ function createQuiz1(){
     let qtdLevels = document.querySelector(".quizLevels").value;
     console.log(qtdPerguntas);
     if(qtdPerguntas < 3 || objQuiz.title === "" || objQuiz.image === "" || qtdLevels < 2 ||
-    objQuiz.title.length < 20 || objQuiz.title.length > 65 || !objQuiz.image.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm)){
+    objQuiz.title.length < 20 || objQuiz.title.length > 65 || !objQuiz.image.match(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)){
         alert("erro");
     } else {
         enterQuizCreation2();
@@ -76,10 +76,10 @@ function createQuiz2(qtd){
         let incorrect3 = document.querySelector(`.resposta-errada-3-pergunta-${i}`).value;
         let incorrect3Image = document.querySelector(`.imagem-errada-3-pergunta-${i}`).value;
         if(titulo.length < 20 || cor.length != 7 || cor[0] != "#" || correct == "" || incorrect1 == "" ||
-        incorrect2 == "" || incorrect3 == "" /*|| incorrect1Image.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm) ||
-        incorrect2Image.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm) ||
-        incorrect3Image.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm) ||
-        correctImage.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm)*/){
+        incorrect2 == "" || incorrect3 == "" || incorrect1Image.match(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)|
+        incorrect2Image.match(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)|
+        incorrect3Image.match(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)|
+        correctImage.match(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)){
             erro = 'erro';
             i = 10000;
             alert("Erro");
@@ -143,9 +143,16 @@ function createQuiz3(qtd){
     }
     if(arrayporcentagem.includes(0) && erro == null){
         objQuiz.levels = objLevels;
+        let promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", objQuiz);
+        promise.then(enterQuizCreation4);
+        promise.catch(alert("Erro no envio do quiz"));
     } else {
         alert("Erro");
     }
+}
+
+function enterQuizCreation4(newId){
+    alert("envio correto");
 }
 
 function enterQuizCreation2(){
