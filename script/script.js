@@ -18,6 +18,8 @@ let percent = null;
 let descript = null;
 let pag = document.querySelector('.endQuizzResult');
 let roll = null;
+let lie;
+let truth;
 
 
 function selectQuiz(id){
@@ -294,14 +296,13 @@ function backgroundColor(i,color){
 function optionsQuizz(i){
     let optionQuizz = document.querySelector(`#option${i}`)
     let length = quizzSelect.data.questions[i].answers.length;
-    console.log(optionQuizz);
             for(let j = 0; j < length; j++){
                 let property = quizzSelect.data.questions[i].answers[j];
                 let urlimage = property.image;
                 let nameImage = property.text;
                 answer = property.isCorrectAnswer;
                 optionQuizz.innerHTML += `<figure id='fig${j}'>
-                <img class='img-answers' id='img${j}' onclick='opacityImages(${answer},this, ${i},${j})' src="${urlimage}"><p class = '${answer}'>${nameImage}</p>
+                <img class='img-answers' id='img${j}' onclick='opacityImages(${answer},this, ${i})' src="${urlimage}"><p class = '${answer}'>${nameImage}</p>
                 </figure>`;
             }
 }
@@ -315,15 +316,15 @@ function scroll(){
     roll.scrollIntoView();
 }
 //adicionar o estilo quando selecionar uma opção
-function opacityImages(answer, element, i, j){
+function opacityImages(answer, element, i){
     if(click == i){
         let father = element.parentNode.parentNode;
-        let lie = father.querySelectorAll(".false");
+        lie = father.querySelectorAll(".false");
         lie.forEach(element => {
         element.style.color = 'red';
         });
-        let bet = father.querySelector(".true");
-        bet.style.color = "green";
+        truth = father.querySelector(".true");
+        truth.style.color = "green";
 
         father.querySelectorAll("figure").forEach(element =>{
             element.style.opacity = '0.3';
@@ -333,7 +334,9 @@ function opacityImages(answer, element, i, j){
         click++;
         roll = element;
         setTimeout(scroll,1000);
+        if(answers.length == quizzSelect.data.questions.length){
         setTimeout(screenEnd,2000)
+        }
     }
     // if(click==i){
     //     let images = document.querySelectorAll(`#option${i} .img-answers`);
@@ -359,14 +362,14 @@ function textGreen(i,j){
 
 // validar o número de respostas corretas
 function screenEnd(){
-    if(answers.length == quizzSelect.data.questions.length){
+    
         percentHits();
         messageEnd();
         let pag = document.querySelector('.endQuizz');
         pag.classList.remove('hidden');
         let pagQZ = document.querySelector(".pag-quizz");
         pagQZ.classList.add("hidden");
-    }
+    
 }
 function percentHits(){
     answers.forEach(element =>{
@@ -404,12 +407,14 @@ function innerScreen(){
 function returnQuizz(){
     let endScreen = document.querySelector(".endQuizz");
     let pagQuizz = document.querySelector(".pag-quizz");
+    let pics = document.querySelectorAll("figure");
+    let p = document.querySelectorAll("figure p");
+    p.forEach(element =>{
+        element.style.color = "black";
+    })
     endScreen.classList.add("hidden");
     pagQuizz.classList.remove("hidden");
     click = 0;
-    let pics = document.querySelectorAll("figure");
-    console.log(pics)
-    console.log(pics);
     pics.forEach(element =>{
         element.style.opacity = "1";
     })
