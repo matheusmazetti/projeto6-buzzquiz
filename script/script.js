@@ -7,6 +7,7 @@ let objQuiz = {};
 let quizzSelect = [];
 let click = 0;
 let objQuestion = [];
+let objLevels = [];
 let answer = null;
 let answers = [];
 let legthQuizz = null;
@@ -59,6 +60,7 @@ function createQuiz1(){
 function createQuiz2(qtd){
     let obj = {};
     let objRespostas = [];
+    let erro = null;
     for(i = 1; i <= qtd; i++){
         let titulo = document.querySelector(`.texto-pergunta-${i}`).value;
         let cor = document.querySelector(`.cor-pergunta-${i}`).value;
@@ -70,35 +72,64 @@ function createQuiz2(qtd){
         let incorrect2Image = document.querySelector(`.imagem-errada-2-pergunta-${i}`).value;
         let incorrect3 = document.querySelector(`.resposta-errada-3-pergunta-${i}`).value;
         let incorrect3Image = document.querySelector(`.imagem-errada-3-pergunta-${i}`).value;
-        objRespostas[0] = {
-            title: correct,
-            image: correctImage,
-            isCorrectAnswer: true
+        if(titulo.length < 20 || cor.length != 7 || cor[0] != "#" || correct == "" || incorrect1 == "" ||
+        incorrect2 == "" || incorrect3 == "" /*|| incorrect1Image.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm) ||
+        incorrect2Image.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm) ||
+        incorrect3Image.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm) ||
+        correctImage.match(/(?:http(s)?:\/\/)?[\^w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm)*/){
+            erro = 'erro';
+            i = 10000;
+            alert("Erro");
+        } else {
+            objRespostas[0] = {
+                title: correct,
+                image: correctImage,
+                isCorrectAnswer: true
+            }
+            objRespostas[1] = {
+                title: incorrect1,
+                image: incorrect1Image,
+                isCorrectAnswer: false
+            }
+            objRespostas[2] = {
+                title: incorrect2,
+                image: incorrect2Image,
+                isCorrectAnswer: false
+            } 
+            objRespostas[3] = {
+                title: incorrect3,
+                image: incorrect3Image,
+                isCorrectAnswer: false
+            }
+            obj = {
+                title: titulo,
+                color: cor,
+                answers: objRespostas
+            }
+            objQuestion[i-1] = obj;
         }
-        objRespostas[1] = {
-            title: incorrect1,
-            image: incorrect1Image,
-            isCorrectAnswer: false
-        }
-        objRespostas[2] = {
-            title: incorrect2,
-            image: incorrect2Image,
-            isCorrectAnswer: false
-        } 
-        objRespostas[3] = {
-            title: incorrect3,
-            image: incorrect3Image,
-            isCorrectAnswer: false
-        }
-        obj = {
-            title: titulo,
-            color: cor,
-            answers: objRespostas
-        }
-        objQuestion[i-1] = obj;
     }
-    objQuiz.questions = objQuestion;
-    enterQuizCreation3();
+    if(erro != "erro"){
+        objQuiz.questions = objQuestion;
+        enterQuizCreation3();
+    }
+    console.log(i);
+}
+
+function createQuiz3(qtd){
+    for(i = 1; i <= qtd; i++){
+        let tituloNivel = document.querySelector(`.titulo-nivel-${i}`).value;
+        let porcentagem = parseInt(document.querySelector(`.porcentagem-nivel-${i}`).value);
+        let imagem = document.querySelector(`.imagem-nivel-${i}`).value;
+        let descricao = document.querySelector(`.descricao-nivel-${i}`).value;
+        objLevels[i-1] = {
+            title: tituloNivel,
+            image: imagem,
+            text: descricao,
+            minValue: porcentagem
+        }
+    }
+    objQuiz.levels = objLevels;
 }
 
 function enterQuizCreation2(){
@@ -159,8 +190,10 @@ function showLevels(qtd){
             <input class="porcentagem-nivel-${i}" type="number" placeholder="% de acerto mínima">
             <input class="imagem-nivel-${i}" type="text" placeholder="URL da imagem do nível">
             <textarea class="descricao-nivel-${i}" name="text" id="text" cols="30" rows="15" placeholder="Descrição do nível"></textarea>
-        </div>`
+        </div>`;
     }
+    let levelsButton = document.querySelector(".create-quizz-3");
+    levelsButton.innerHTML += `<button onclick="createQuiz3(${qtd})">Prosseguir para criar as perguntas</button>`;
 }
 
 function getQuizzes(){
