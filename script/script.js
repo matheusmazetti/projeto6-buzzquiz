@@ -88,27 +88,27 @@ function createQuiz2(qtd){
             alert("Erro");
         } else {
             objRespostas[0] = {
-                title: correct,
+                text: correct,
                 image: correctImage,
                 isCorrectAnswer: true
             }
             objRespostas[1] = {
-                title: incorrect1,
+                text: incorrect1,
                 image: incorrect1Image,
                 isCorrectAnswer: false
             }
             objRespostas[2] = {
-                title: incorrect2,
+                text: incorrect2,
                 image: incorrect2Image,
                 isCorrectAnswer: false
             } 
             objRespostas[3] = {
-                title: incorrect3,
+                text: incorrect3,
                 image: incorrect3Image,
                 isCorrectAnswer: false
             }
             obj = {
-                title: titulo,
+                text: titulo,
                 color: cor,
                 answers: objRespostas
             }
@@ -181,25 +181,25 @@ function showQuestionsqtd(qtd){
         showQuestions.innerHTML += `
         <div class="box-pergunta ${i}">
             <h2>Pergunta ${i}</h2>
-            <input class="texto-pergunta-${i}" type="text" placeholder="Texto da pergunta">
-            <input class="cor-pergunta-${i}" type="text" placeholder="Cor de fundo da pergunta">
+            <input data-identifier="question" class="texto-pergunta-${i}" type="text" placeholder="Texto da pergunta">
+            <input data-identifier="question" class="cor-pergunta-${i}" type="text" placeholder="Cor de fundo da pergunta">
             <div class="q">
                 <h2>Resposta correta</h2>
-                <input class="resposta-correta-pergunta-${i}" type="text" placeholder="Resposta correta">
-                <input class="imagem-correta-pergunta-${i}" type="text" placeholder="URL da imagem">
+                <input data-identifier="question" class="resposta-correta-pergunta-${i}" type="text" placeholder="Resposta correta">
+                <input data-identifier="question" class="imagem-correta-pergunta-${i}" type="text" placeholder="URL da imagem">
             </div>
             <div class="q">
                 <h2>Respostas Incorretas</h2>
-                <input class="resposta-errada-1-pergunta-${i}" type="text" placeholder="Resposta incorreta 1">
-                <input class="imagem-errada-1-pergunta-${i}" type="text" placeholder="URL da imagem 1">
+                <input data-identifier="question" class="resposta-errada-1-pergunta-${i}" type="text" placeholder="Resposta incorreta 1">
+                <input data-identifier="question" class="imagem-errada-1-pergunta-${i}" type="text" placeholder="URL da imagem 1">
             </div>
             <div class="q">
-                <input class="resposta-errada-2-pergunta-${i}" type="text" placeholder="Resposta incorreta 2">
-                <input class="imagem-errada-2-pergunta-${i}" type="text" placeholder="URL da imagem 2">
+                <input data-identifier="question" class="resposta-errada-2-pergunta-${i}" type="text" placeholder="Resposta incorreta 2">
+                <input data-identifier="question" class="imagem-errada-2-pergunta-${i}" type="text" placeholder="URL da imagem 2">
             </div>
             <div class="q">
-                <input class="resposta-errada-3-pergunta-${i}" type="text" placeholder="Resposta incorreta 3">
-                <input class="imagem-errada-3-pergunta-${i}" type="text" placeholder="URL da imagem 3">
+                <input data-identifier="question" class="resposta-errada-3-pergunta-${i}" type="text" placeholder="Resposta incorreta 3">
+                <input data-identifier="question" class="imagem-errada-3-pergunta-${i}" type="text" placeholder="URL da imagem 3">
             </div>
         </div>`;
     }
@@ -213,10 +213,10 @@ function showLevels(qtd){
         levels.innerHTML += `
         <div class="n1">
             <h2>Nível ${i}</h2>
-            <input class="titulo-nivel-${i}" type="text" placeholder="Título do nível">
-            <input class="porcentagem-nivel-${i}" type="number" placeholder="% de acerto mínima">
-            <input class="imagem-nivel-${i}" type="text" placeholder="URL da imagem do nível">
-            <textarea class="descricao-nivel-${i}" name="text" id="text" cols="30" rows="15" placeholder="Descrição do nível"></textarea>
+            <input data-identifier="level" class="titulo-nivel-${i}" type="text" placeholder="Título do nível">
+            <input data-identifier="level" class="porcentagem-nivel-${i}" type="number" placeholder="% de acerto mínima">
+            <input data-identifier="level" class="imagem-nivel-${i}" type="text" placeholder="URL da imagem do nível">
+            <textarea data-identifier="level" class="descricao-nivel-${i}" name="text" id="text" cols="30" rows="15" placeholder="Descrição do nível"></textarea>
         </div>`;
     }
     let levelsButton = document.querySelector(".create-quizz-3");
@@ -240,7 +240,7 @@ function showQuizzes(quiz){
         id = element.id;
         let quizzes = document.querySelector(".all-quizz");
         quizzes.innerHTML += `
-        <div class="quizz ${element.id}" onclick="selectQuiz(${element.id})">
+        <div class="quizz ${element.id}" data-identifier="quizz-card" onclick="selectQuiz(${element.id})">
             <h2>${element.title}</h2>
             <div class="mask"></div>
             <img class="quizz-img" src="${element.image}"/>
