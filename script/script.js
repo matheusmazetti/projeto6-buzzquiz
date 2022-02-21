@@ -17,6 +17,7 @@ let imgEnd = '';
 let percent = null;
 let descript = null;
 let pag = document.querySelector('.endQuizzResult');
+let roll = null;
 
 
 function selectQuiz(id){
@@ -293,22 +294,26 @@ function backgroundColor(i,color){
 function optionsQuizz(i){
     let optionQuizz = document.querySelector(`#option${i}`)
     let length = quizzSelect.data.questions[i].answers.length;
+    console.log(optionQuizz);
             for(let j = 0; j < length; j++){
                 let property = quizzSelect.data.questions[i].answers[j];
                 let urlimage = property.image;
                 let nameImage = property.text;
                 answer = property.isCorrectAnswer;
-                
                 optionQuizz.innerHTML += `<figure id='fig${j}'>
                 <img class='img-answers' id='img${j}' onclick='opacityImages(${answer},this, ${i},${j})' src="${urlimage}"><p class = '${answer}'>${nameImage}</p>
                 </figure>`;
             }
 }
 
+
+
 function comparador() { 
 	return Math.random() - 0.5; 
 }
-
+function scroll(){
+    roll.scrollIntoView();
+}
 //adicionar o estilo quando selecionar uma opção
 function opacityImages(answer, element, i, j){
     if(click == i){
@@ -326,7 +331,9 @@ function opacityImages(answer, element, i, j){
         element.parentNode.style.opacity = '1';
         answers.push(answer);
         click++;
-        screenEnd();
+        roll = element;
+        setTimeout(scroll,1000);
+        setTimeout(screenEnd,2000)
     }
     // if(click==i){
     //     let images = document.querySelectorAll(`#option${i} .img-answers`);
