@@ -146,6 +146,7 @@ function createQuiz3(qtd){
     }
     if(arrayporcentagem.includes(0) && erro == null){
         objQuiz.levels = objLevels;
+        console.log(objQuiz);
         let promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", objQuiz);
         promise.then(enterQuizCreation4);
         promise.catch(alert("Erro no envio do quiz"));
@@ -280,7 +281,7 @@ function titleQuizz(){
     let titleQuestion = document.querySelector(".question");
     let length = quizzSelect.data.questions.length;
     for(let i = 0; i<length;i++){
-        titleQuestion.innerHTML += `<div class= "ask"><h1  id='color${i}'>${quizzSelect.data.questions[i].title}</h1></div>
+        titleQuestion.innerHTML += `<div class= "ask"><h1 data-identifier="question"  id='color${i}'>${quizzSelect.data.questions[i].title}</h1></div>
                                     <div class="options" id='option${i}'></div>
         `;
         let color = quizzSelect.data.questions[i].color;
@@ -301,7 +302,7 @@ function optionsQuizz(i){
                 let urlimage = property.image;
                 let nameImage = property.text;
                 answer = property.isCorrectAnswer;
-                optionQuizz.innerHTML += `<figure id='fig${j}'>
+                optionQuizz.innerHTML += `<figure id='fig${j}' data-identifier="answer">
                 <img class='img-answers' id='img${j}' onclick='opacityImages(${answer},this, ${i})' src="${urlimage}"><p class = '${answer}'>${nameImage}</p>
                 </figure>`;
             }
